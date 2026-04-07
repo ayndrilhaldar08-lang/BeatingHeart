@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beating Heart</title>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #ff9a9e, #fecfef);
+      font-family: Arial, sans-serif;
+    }
+
+    /* HEART */
+    .heart {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: relative;
+      transform: rotate(-45deg);
+      animation: beat 1s infinite;
+      z-index: 2;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 50px;
+      top: 0;
+    }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: scale(1) rotate(-45deg);
+      }
+      50% {
+        transform: scale(1.2) rotate(-45deg);
+      }
+    }
+
+    /* BUBBLES */
+    .bubble {
+      position: absolute;
+      bottom: 100%;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
+    /* CAPTION */
+    .caption {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      color: white;
+      font-size: 18px;
+      max-width: 300px;
+      text-align: right;
+      line-height: 1.4;
+      animation: fadeIn 3s ease-in-out;
+      text-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEART -->
+  <div class="heart"></div>
+
+  <!-- CAPTION -->
+  <div class="caption">
+    Hu khushkismat jo kismat se<br>
+    Tumhe aise mai paaya hu<br>
+    Mai tumse ishq karne ki<br>
+    Ijaazat rabb se laaya hu..!!
+  </div>
+
+  <!-- AUDIO -->
+  <audio autoplay loop>
+    <source src="Audio to be used.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- BUBBLES SCRIPT -->
+  <script>
+    function createBubble() {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+
+      bubble.style.left = Math.random() * 100 + "vw";
+
+      let size = Math.random() * 20 + 10;
+      bubble.style.width = size + "px";
+      bubble.style.height = size + "px";
+
+      bubble.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+      document.body.appendChild(bubble);
+
+      setTimeout(() => {
+        bubble.remove();
+      }, 5000);
+    }
+
+    setInterval(createBubble, 200);
+  </script>
+
+</body>
+</html>
